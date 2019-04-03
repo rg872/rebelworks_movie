@@ -1,7 +1,7 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 
-import NavigationService from '@navigation/NavigationService'
+import NavigationService from '@navigation/utils/NavigationService'
 import configStore from '@redux/store'
 import AppContainer from '@navigation'
 

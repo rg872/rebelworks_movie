@@ -4,20 +4,21 @@ const SET_SELECTED_MOVIE = 'REBELWORKS/MOVIE/SET_SELECTED_MOVIE'
 
 const GET_MOVIE_LIST_REQUEST = 'REBELWORKS/MOVIE/GET_MOVIE_LIST_REQUEST'
 const GET_MOVIE_LIST_SUCCESS = 'REBELWORKS/MOVIE/GET_MOVIE_LIST_SUCCESS'
-const GET_MOVIE_LIST_REQUEST = 'REBELWORKS/MOVIE/GET_MOVIE_LIST_REQUEST'
+const GET_MOVIE_LIST_ERROR = 'REBELWORKS/MOVIE/GET_MOVIE_LIST_ERROR'
+const GET_SIMILAR_MOVIES_REQUEST = 'REBELWORKS/MOVIE/GET_SIMILAR_MOVIES_REQUEST'
 const GET_SIMILAR_MOVIES_SUCCESS = 'REBELWORKS/MOVIE/GET_SIMILAR_MOVIES_SUCCESS'
 const GET_SIMILAR_MOVIES_ERROR = 'REBELWORKS/MOVIE/GET_SIMILAR_MOVIES_ERROR'
-const GET_SIMILAR_MOVIES_ERROR = 'REBELWORKS/MOVIE/GET_SIMILAR_MOVIES_ERROR'
+
 
 const initialStates = {
   movieListPage: {
-    curretPage: 1,
+    currentPage: 1,
     totalPages: 1,
   },
-  movieList:[],
+  movieList: [],
   selectedMovie: {
     id: '',
-    title: ''.
+    title: '',
     posterPath: '',
     releaseDate: new Date(),
     overview: '',
@@ -32,12 +33,12 @@ const initialStates = {
 
 export default createReducer(initialStates, {
   /* MUTATION REDUCER  */
-  [SET_SELECTED_MOVIE]: (state, seletectedIndex) =>({
+  [SET_SELECTED_MOVIE]: (state, selectedIndex) => ({
     ...state,
-    seletedMovie: {
+    selectedMovie: {
       ...state.movieList[selectedIndex],
     },
-  })
+  }),
 
   /* ACTION REDUCER */
   [GET_MOVIE_LIST_REQUEST]: state => ({
@@ -105,7 +106,7 @@ export function getMovieList(page, cb = () => {}) {
   }
 }
 
-export function getMovieList({ page, movieId }, cb = () => {}) {
+export function getSimilarMovies({ page, movieId }, cb = () => {}) {
   return {
     type: [
       GET_SIMILAR_MOVIES_REQUEST,

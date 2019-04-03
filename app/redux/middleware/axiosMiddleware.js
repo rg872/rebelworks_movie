@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import config from '@config/'
+import { baseRequestUrl, apiKey } from '@config'
 
 export default function shuttleMiddleware() {
   return () => next => (action) => {
@@ -15,7 +15,6 @@ export default function shuttleMiddleware() {
       return next(action)
     }
 
-    const { baseRequestUrl, apikey } = config
     const [REQUEST, SUCCESS, FAILURE] = type
 
     axiosConfig.baseURL = baseRequestUrl
