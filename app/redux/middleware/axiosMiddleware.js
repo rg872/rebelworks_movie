@@ -23,7 +23,7 @@ export default function shuttleMiddleware() {
     axiosConfig.params = axiosConfig.params ?
       { ...axiosConfig.params, api_key } :
       { api_key }
- 
+    console.log('AXIOSCONFIG', axiosConfig) 
     next({ ...rest, type: REQUEST })
 
     function success(res) {

@@ -5,11 +5,10 @@ import {
   Container,
   Content,
   Spinner,
-  Image,
   Text,
 } from 'native-base'
 
-import { FlatList } from 'react-native'
+import { FlatList, Image } from 'react-native'
 
 import MovieCard from '@components/MovieCard'
 
@@ -58,10 +57,12 @@ class MovieDetailScreen extends Component {
         >
           <Image
             source={{ uri: baseUrl + posterSize + selectedMovie.poster_path }}
-            style={{ widht: 400, height: 400 }}
+            style={{ width: 400, height: 400 }}
           />
-          <Text>{ selectedMovie.overview }</Text>
-          <Text>{ selectedMovie.release_date }</Text>
+          <Text>Release Date:</Text>
+          <Text style={{ marginBottom: 15 }}>{ selectedMovie.release_date }</Text>
+          <Text>Summary</Text>
+          <Text style={{ marginBottom: 15 }}>{ selectedMovie.overview }</Text>
 
           <FlatList
             horizontal
