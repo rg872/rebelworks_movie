@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { baseRequestUrl, apiKey } from '@config'
+import config from '@config'
 
 export default function shuttleMiddleware() {
   return () => next => (action) => {
@@ -17,12 +17,17 @@ export default function shuttleMiddleware() {
 
     const [REQUEST, SUCCESS, FAILURE] = type
 
-    axiosConfig.baseURL = baseRequestUrl
-    axiosConfig.params.apiKey = apiKey
+    const { baseRequestUrl, api_key } = config
 
+    axiosConfig.baseURL = baseRequestUrl
+    axiosConfig.params = axiosConfig.params ?
+      { ...axiosConfig.params, api_key } :
+      { api_key }
+ 
     next({ ...rest, type: REQUEST })
 
     function success(res) {
+      console.log(`SUCCESS MIDDLEWARE:${SUCCESS} =>`, res.data)
       next({ ...rest, payload: res.data, type: SUCCESS })
       if (nextAction) {
         nextAction(res.data, null)

@@ -19,7 +19,7 @@ export default createReducer(initialStates, {
     ...state,
     isLoading: true,
   }),
-  [GET_CONFIGURATION_SUCCESS]: (state, { images: { secureBaseUrl: baseUrl, posterSizes } }) => ({
+  [GET_CONFIGURATION_SUCCESS]: (state, { images: { secure_base_url: baseUrl, poster_sizes: posterSizes } }) => ({
     ...state,
     baseUrl,
     posterSizes,
@@ -47,6 +47,6 @@ export function getConfiguration(cb = () => {}) {
       method: 'get',
       url: '/configuration'
     },
-    nextAction: res => cb(res, err),
+    nextAction: (res, err) => cb(res, err),
   }
 }

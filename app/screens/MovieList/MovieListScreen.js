@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import {
-  View,
-  Button,
-  TextInput,
+  Container,
+} from 'native-base'
+
+import {
   Text,
 } from 'react-native'
 
@@ -15,23 +16,28 @@ class MovieListScreen extends Component {
     super(props)
   }
 
+  static navigationOptions = {
+    header: null, 
+  }
+
   componentWillMount() {
     const {
       baseUrl,
       getConfiguration,
       movieList,
+      movieListPage,
       getMovieList,
     } = this.props
 
     if(!baseUrl) getConfiguration()
-    if(movieList.length < 1) getMovieList()
+    if(movieList.length < 1) getMovieList(movieListPage.currentPage)
   }
 
   render() {
     return (
-      <View>
-        <Text> TEST </Text>
-      </View>
+      <Container>
+        <Text> INI </Text>
+      </Container>
     )
   }
 }

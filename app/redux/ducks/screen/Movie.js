@@ -16,13 +16,7 @@ const initialStates = {
     totalPages: 1,
   },
   movieList: [],
-  selectedMovie: {
-    id: '',
-    title: '',
-    posterPath: '',
-    releaseDate: new Date(),
-    overview: '',
-  },
+  selectedMovie: {},
   similarMovies: [],
   similarMoviesPage: {
     currentPage: 1,
@@ -35,9 +29,7 @@ export default createReducer(initialStates, {
   /* MUTATION REDUCER  */
   [SET_SELECTED_MOVIE]: (state, selectedIndex) => ({
     ...state,
-    selectedMovie: {
-      ...state.movieList[selectedIndex],
-    },
+    selectedMovie: state.movieList[selectedIndex],
   }),
 
   /* ACTION REDUCER */
@@ -45,7 +37,7 @@ export default createReducer(initialStates, {
     ...state,
     isLoading: true,
   }),
-  [GET_MOVIE_LIST_SUCCESS]: (state, { results: movieList, page: currentPage, totalPages }) => ({
+  [GET_MOVIE_LIST_SUCCESS]: (state, { results: movieList, page: currentPage, total_pages: totalPages }) => ({
     ...state,
     movieList,
     movieListPage: {
@@ -62,7 +54,7 @@ export default createReducer(initialStates, {
     ...state,
     isLoading: true,
   }),
-  [GET_SIMILAR_MOVIES_SUCCESS]: (state, { results: similarMovies, page: currentPage, totalPages }) => ({
+  [GET_SIMILAR_MOVIES_SUCCESS]: (state, { results: similarMovies, page: currentPage, total_pages: totalPages }) => ({
     ...state,
     similarMovies,
     similarMoviesPage: {
@@ -96,13 +88,13 @@ export function getMovieList(page, cb = () => {}) {
     ],
     axiosConfig: {
       method: 'get',
-      url: 'movie/now_playing',
+      url: '/movie/now_playing',
       params: {
         page,
         region: 'ID',
       },
     },
-    nextAction: res => cb(res, err),
+    nextAction: (res, err) => cb(res, err),
   }
 }
 
@@ -120,6 +112,6 @@ export function getSimilarMovies({ page, movieId }, cb = () => {}) {
         page
       },
     },
-    nextAction: res => cb(res, err),
+    nextAction: (res, err) => cb(res, err),
   }
 }

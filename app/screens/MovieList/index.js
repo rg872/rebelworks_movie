@@ -11,7 +11,7 @@ import MovieListScreen from './MovieListScreen'
 
 const mapStateToProps = state => ({
   baseUrl: state.Configuration.baseUrl,
-  posterSize: state.Configuration.posterSizes[state.Configuration.posterSizes.length - 1],
+  posterSizes: state.Configuration.posterSizes,
   isLoadingConfiguration: state.Configuration.isLoading,
   movieListPage: state.Movie.movieListPage,
   movieList: state.Movie.movieList,
