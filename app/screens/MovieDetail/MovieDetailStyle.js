@@ -7,11 +7,11 @@ const styles = StyleSheet.create({
     height: dimensions.fullHeight,
   },
   moviePosterStyle:{
-    width: '100%',
-    height: dimensions.fullHeight * 25 / 100,
+    width: dimensions.fullwidth * 20 / 100,
+    height: dimensions.fullHeight / 10,
   },
   movieListStyle:{
-    height: dimensions.fullHeight,
+    width: dimensions.fullWidth,
   },
 })
 

@@ -5,15 +5,17 @@ import {
   Container,
   Content,
   Spinner,
+  Image,
+  Text,
 } from 'native-base'
 
 import { FlatList } from 'react-native'
 
 import MovieCard from '@components/MovieCard'
 
-import styles from './MovieListStyle'
+import styles from './MovieDetailStyle'
 
-class MovieListScreen extends Component {
+class MovieDetailScreen extends Component {
   constructor(props) {
     super(props)
   }
@@ -25,25 +27,25 @@ class MovieListScreen extends Component {
   componentWillMount() {
     const {
       baseUrl,
-      getConfiguration,
-      movieList,
-      movieListPage,
-      getMovieList,
+      similarMoviesPage,
+      similarMovies,
+      getSimilarMovies,
+      selectedMovie,
     } = this.props
 
-    if(!baseUrl) getConfiguration()
-    if(movieList.length < 1) getMovieList()
+    getSimilarMovies({ page: similarMoviesPage.currentPage, movieId: selectedMovie.id})
   }
 
   render() {
     const {
-      movieList,
+      selectedMovie,
       baseUrl,
       posterSizes,
-      getMovieList,
-      movieListPage,
-      isLoadingMovieList,
+      getSimilarMovies,
+      similarMoviesPage,
+      isLoading,
       seeMovieDetail,
+      similarMovies,
     } = this.props
 
     const posterSize = posterSizes[posterSizes.length - 2]
@@ -54,9 +56,17 @@ class MovieListScreen extends Component {
           padder
           contentContainerStyle={styles.contentContainerStyle}
         >
+          <Image
+            source={{ uri: baseUrl + posterSize + selectedMovie.poster_path }}
+            style={{ widht: 400, height: 400 }}
+          />
+          <Text>{ selectedMovie.overview }</Text>
+          <Text>{ selectedMovie.release_date }</Text>
+
           <FlatList
+            horizontal
             style={styles.movieListStyle}
-            data={movieList}
+            data={similarMovies}
             keyExtractor={(item) => String(item.id)}
             renderItem={({item, index}) => (
               <MovieCard
@@ -67,19 +77,19 @@ class MovieListScreen extends Component {
                 seeMovieDetail={() => seeMovieDetail(index)}
               />
             )}
-            onEndReached={() => getMovieList(movieListPage.currentPage + 1)}
+            onEndReached={() => getSimilarMovies({page: similarMoviesPage.currentPage + 1, movieId: selectedMovie.id})}
             onEndReachedThreshold={0.5}
             initialNumToRender={7}
           />
-          {isLoadingMovieList && <Spinner />}
+          {isLoading && <Spinner />}
         </Content>
       </Container>
     )
   }
 }
 
-MovieListScreen.propTypes = {
+MovieDetailScreen.propTypes = {
 
 }
 
-export default MovieListScreen
+export default MovieDetailScreen

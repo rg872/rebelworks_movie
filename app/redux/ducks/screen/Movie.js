@@ -39,7 +39,10 @@ export default createReducer(initialStates, {
   }),
   [GET_MOVIE_LIST_SUCCESS]: (state, { results: movieList, page: currentPage, total_pages: totalPages }) => ({
     ...state,
-    movieList,
+    movieList:[
+      ...state.movieList,
+      ...movieList,
+    ],
     movieListPage: {
       currentPage,
       totalPages,
@@ -56,7 +59,10 @@ export default createReducer(initialStates, {
   }),
   [GET_SIMILAR_MOVIES_SUCCESS]: (state, { results: similarMovies, page: currentPage, total_pages: totalPages }) => ({
     ...state,
-    similarMovies,
+    similarMovies:[
+      ...state.similarMovies,
+      ...similarMovies,
+    ],
     similarMoviesPage: {
       currentPage,
       totalPages,
@@ -91,7 +97,6 @@ export function getMovieList(page, cb = () => {}) {
       url: '/movie/now_playing',
       params: {
         page,
-        region: 'ID',
       },
     },
     nextAction: (res, err) => cb(res, err),

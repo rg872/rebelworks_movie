@@ -1,11 +1,12 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import { Font } from 'expo'
-import { Ionicons } from '@expo/vector-icons'
 
 import NavigationService from '@navigation/utils/NavigationService'
 import configStore from '@redux/store'
 import AppContainer from '@navigation'
+
+import { Font } from 'expo'
+import { Ionicons } from '@expo/vector-icons'
 
 const store = configStore()
 

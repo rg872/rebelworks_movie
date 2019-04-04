@@ -4,24 +4,22 @@ import { bindActionCreators } from 'redux'
 import { AsyncStorage } from 'react-native'
 import NavigationService from '@navigation/utils/NavigationService'
 
-import { getConfiguration  } from '@redux/ducks/global/Configuration'
-import { setSelectedMovie, getMovieList  } from '@redux/ducks/screen/Movie'
+import { getSimilarMovies, setSelectedMovie } from '@redux/ducks/screen/Movie'
 
-import MovieListScreen from './MovieListScreen'
+import MovieDetailScreen from './MovieDetailScreen'
 
 const mapStateToProps = state => ({
   baseUrl: state.Configuration.baseUrl,
   posterSizes: state.Configuration.posterSizes,
-  isLoadingConfiguration: state.Configuration.isLoading,
-  movieListPage: state.Movie.movieListPage,
-  movieList: state.Movie.movieList,
-  isLoadingMovieList: state.Movie.isLoading,
+  similarMoviesPage: state.Movie.similarMoviesPage,
+  similarMovies: state.Movie.similarMovies,
+  isLoading: state.Movie.isLoading,
+  selectedMovie: state.Movie.selectedMovie,
 })
 
 const actionCreators = {
-  getConfiguration,
+  getSimilarMovies,
   setSelectedMovie,
-  getMovieList,
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -35,4 +33,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(MovieListScreen)
+)(MovieDetailScreen)
